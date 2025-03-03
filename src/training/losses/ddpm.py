@@ -57,7 +57,7 @@ if __name__ == "__main__":
     loss = loss_fn(
         net=TestNet(),
         data=torch.ones(10, 3, 5),
-        conds=torch.ones(10, 2, 5),
+        conds=torch.ones(10, 3, 5), # /!\ I changed 2 for 3 here, in order for dimensions of D_yn and n to match
         mask=torch.ones(10, 5),
     )
 

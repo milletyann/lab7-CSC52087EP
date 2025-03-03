@@ -179,6 +179,11 @@ class CrossAttentionDiT(BaseDiT):
             cond_sequential=cond_sequential,
             device=device,
         )
+
+        ### /!\ I had to add these 2 lines as well to define my cond_ln /!\ ###
+        self.cond_projection = nn.Linear(num_cond_feats, latent_dim)
+        self.cond_ln = nn.LayerNorm(latent_dim, eps=1e-6)
+
         assert clip_sequential and cond_sequential
 
     # --------------------------------------------------------------------------------- #
@@ -242,11 +247,9 @@ class CrossAttentionDiT(BaseDiT):
         cond_emb = self.cond_positional_embedding(cond_emb)
         # ----------------------------------------------------------------------------- #
         # Complete this part for `Code 5`
-        if self.cond_sequential:  
-            cond_emb = self.cond_sa(
-                cond_emb,
-                attention_mask=None,
-        )
+        if self.cond_sequential:
+            for block in self.cond_sa:
+                cond_emb = block(cond_emb)
         # ----------------------------------------------------------------------------- #
         return cond_emb
 
