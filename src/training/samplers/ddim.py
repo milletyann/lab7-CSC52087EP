@@ -56,8 +56,8 @@ class DDIMSampler(nn.Module):
             # x0 prediction
             # ------------------------------------------------------------------------- #
             # Complete this part for `Code 8`
-            # noise_pred = ...
-            # x_next = ...
+            noise_pred = (x_cur - g_cur * x0) / ((1 - g_cur ** 2) ** 0.5)
+            x_next = g_next * x0 + ((1 - g_next ** 2) ** 0.5) * noise_pred
             # ------------------------------------------------------------------------- #
 
             x_cur = x_next
