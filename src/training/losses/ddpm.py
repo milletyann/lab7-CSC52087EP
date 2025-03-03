@@ -33,11 +33,11 @@ class DDPMLoss:
         n = torch.randn_like(data)
         # ------------------------------------------------------------------------- #
         # Complete this part for `Code 6`
-        # data_n = ...
+        data_n = data * gamma + n * (1 - gamma) ** 0.5
         # Denoise
-        # D_yn = ...
+        D_yn = net(data_n, conds, mask, timesteps)
         # Compute loss
-        # loss = ...
+        loss = torch.mean((D_yn - n) ** 2)
         # ------------------------------------------------------------------------- #
 
         return loss
