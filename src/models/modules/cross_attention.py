@@ -108,8 +108,8 @@ class CrossAttentionSABlock(nn.Module):
         # Complete this part for `Code 5`
         normed_tokens = self.ca_ln(tokens)
         ca_output = self.ca(
-            # ...,
-            # ...,
+            normed_tokens,
+            cond,
             attention_mask=cond_attention_mask,
         )
         # ----------------------------------------------------------------------------- #
@@ -237,13 +237,16 @@ class CrossAttentionDiT(BaseDiT):
         cond_emb = self.cond_projection(cond)
         # ----------------------------------------------------------------------------- #
         # Complete this part for `Code 5`
-        # cond_emb = ...
+        cond_emb = self.cond_ln(cond_emb)
         # ----------------------------------------------------------------------------- #
         cond_emb = self.cond_positional_embedding(cond_emb)
         # ----------------------------------------------------------------------------- #
         # Complete this part for `Code 5`
-        # ... self.cond_sa
-        #     cond_emb = ...
+        if self.cond_sequential:  
+            cond_emb = self.cond_sa(
+                cond_emb,
+                attention_mask=None,
+        )
         # ----------------------------------------------------------------------------- #
         return cond_emb
 

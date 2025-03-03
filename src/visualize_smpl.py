@@ -20,7 +20,8 @@ def main(config: DictConfig) -> Optional[float]:
     human_feat = sample["human_feat"]
     # --------------------------------------------------------------------------------- #
     # Complete this part for `Code 2`
-    # ...
+    num_frames = human_feat.shape[0]
+    num_feats = human_feat.shape[1]
     # --------------------------------------------------------------------------------- #
     print(f"Number of frames F: {num_frames}")
     print(f"Number of features d: {num_feats}")

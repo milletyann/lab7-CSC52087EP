@@ -151,3 +151,6 @@ dmypy.json
 /humanml3d-data
 /humanml3d-data_
 /motionx-data
+
+
+.DS_Store
