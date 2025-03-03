@@ -20,9 +20,9 @@ class SimilarityScore(Metric):
         """Update state with new features."""
         # ----------------------------------------------------------------------------- #
         # Complete this part for `Code 11`
-        # normed_feats_1 = ...
+        normed_feats_1 = feats_1 / feats_1.norm(dim=-1, keepdim=True)
         self.feats_1.append(normed_feats_1)
-        # normed_feats_2 = ...
+        normed_feats_2 = feats_2 / feats_2.norm(dim=-1, keepdim=True)
         self.feats_2.append(normed_feats_2)
         # ----------------------------------------------------------------------------- #
 
@@ -33,7 +33,7 @@ class SimilarityScore(Metric):
 
         # ----------------------------------------------------------------------------- #
         # Complete this part for `Code 11`
-        # score = ...
+        score = torch.cosine_similarity(feats_1, feats_2, dim=-1)
         # ----------------------------------------------------------------------------- #
 
         return torch.max(score, torch.zeros_like(score))
